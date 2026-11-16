@@ -16,24 +16,26 @@ for x in df_duplicated.index:
 '''
 #---------------------------------------------------------------------------------------------------------------------------------
 def cleanData(df):
-    df.to_csv('dati/tirs.csv')
+    df.to_csv('dati/tirs.csv') # Convert pandas dataframe to .csv
     deleteNull(df)
     formatCheck(df)
     newdf.to_csv('dati/tirs.csv')
+
 def deleteNull(df):
-    lenBefore = len(df.index)
-    df.dropna(inplace = True) # Deleting all rows that contains null values. "inplace = true" making dropna edit current dataframe w/o making new one
+    lenBefore = len(df.index) #len(df.index) - sum of all rows in dataframe
+    df.dropna(inplace = True) # Deleting all rows that contains null values. "inplace = true" making dropna edit current dataframe instead of making new one
     lenAfter = len(df.index)
     deletedRows = lenBefore - lenAfter
     print(f"{deletedRows} rows deleted because they contain null value")
 
-def formatCheck(df): # Data format check. Most columns just contains numbers so we check if there is nothing else but numbers and check numbers on possibility of fake data by setting up boundaries for legal values with mediana 
+def formatCheck(df): # Data format check. Most columns in this dataset just contains numbers so we check if there is nothing else but numbers and check numbers on possibility of fake data by setting up boundaries for legal values with mediana 
     return
 #---------------------------------------------------------------------------------------------------------------------------------
 
 #Deleting columns that doesnt contains any info that can be used to predict best position
 newdf = df.drop(columns=["LongName", "photoUrl", "playerUrl", "Nationality", "Age", "↓OVA", "POT", "Club", "Contract", "Height", "Weight", "Preferred Foot", "BOV", "Best Position", "Joined", "Loan Date End", "Value", "Wage", "Release Clause", "Skill", "Mentality", "Aggression", "Interceptions", "Composure", "Total Stats", "Base Stats", "W/F", "IR"], axis="columns")
-#columns=list(newdf.columns.values)
+print(f"{list(df.columns.values)} default columns")
+print(f"{list(newdf.columns.values)} remaining columns")
 cleanData(newdf)
 
 
