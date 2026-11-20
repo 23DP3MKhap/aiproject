@@ -133,3 +133,14 @@ def euros_to_int(value):
 # Contract, Loan Date end - 3 formats in one column and dont have any connection with position
 newdf = df.drop(columns=["photoUrl", "playerUrl", "LongName", "Hits", "Contract", "Loan Date End"], axis="columns")
 cleanData(newdf)
+
+"""
+Fat cat to celebrate 1 step
+    /\_____/\
+   /  o   o  \
+  ( ==  ^  == )
+   )         (
+  (           )
+ ( (  )   (  ) )
+(__(__)___(__)__)
+"""
