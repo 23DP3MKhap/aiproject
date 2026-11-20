@@ -1,5 +1,5 @@
 import pandas as pd
-# removes print limits in console 
+# removes print limits in console
 pd.set_option("display.max_columns", None)
 pd.set_option("display.max_rows", None)
 pd.set_option("display.width", None)
@@ -16,30 +16,32 @@ df = pd.read_csv('dati/data.csv', low_memory=False) # reading data.csv and stori
 #---------------------------------------------------------------------------------------------------------------------------------
 def cleanData(df):
     print(f"Rows at the start: {len(df.index)}")
-    deleteDuplcates(df)
-    deleteNull(df)
-    formatFix(df)
+    df = deleteDuplcates(df)
+    df = deleteNull(df)
+    df = formatFix(df)
     print(f"Rows at the end: {len(df.index)}")
-    df.to_csv('tirs.csv', index=False)
+    df.to_csv('tirs.csv', index=False) # create csv
 
 def deleteDuplcates(df):
     lenBefore = len(df.index)
-    df.drop_duplicates(inplace = True) # Removes full identical data rows. "inplace = true" is rule to edit current dataframe w/o making new one
+    df = df.drop_duplicates() # Removes full identical data rows. "inplace = true" is rule to edit current dataframe w/o making new one
     print(f"{lenBefore - len(df.index)} rows deleted because they are full duplicates")
 
     lenBefore = len(df.index)
-    df.drop_duplicates(subset = "ID", inplace = True) # Removes rows with identical IDs
+    df = df.drop_duplicates(subset = "ID") # Removes rows with identical IDs
     print(f"{lenBefore - len(df.index)} rows deleted because they have duplicate ID")
+    return df
 
 def deleteNull(df): # df.dropna(inplace = True) # Deleting all rows that contains null values. Cant be used in this dataset cus there is null values that have meaning
     lenBefore = len(df.index)
-    df.dropna(subset = "Best Position", inplace = True) # Deleting all rows where Best Position column is null
+    df = df.dropna(subset = "Best Position") # Deleting all rows where Best Position column is null
     lenAfter = len(df.index)
     deletedRows = lenBefore - lenAfter
     print(f"{deletedRows} rows deleted because Best Position is null")
+    return df
 
 def formatFix(df): # Data format fix to one predictable format
-    df.rename(columns={"↓OVA" : "OVA"}, inplace = True) # So i dont have to write this stupid arrow
+    df = df.rename(columns={"↓OVA" : "OVA"}) # So i dont have to write this stupid arrow
 
     #--------------------------CLUB----------------------------------
     # Club format fix: club is stored in dataset with \n at the beggining. For example: \n\n\n\nFC Barcelona.
@@ -68,7 +70,7 @@ def formatFix(df): # Data format fix to one predictable format
 
 
     #-------------------------W/F, SM, IR----------------------------
-    # W/F, SM, IR format fix (all columns got the same problem): every row containing ★ symbol and random space 
+    # W/F, SM, IR format fix (all columns got the same problem): every row containing ★ symbol and random space
     starColumns = ["W/F", "SM", "IR"]
     for i in starColumns:
         # .str.replace("★", "") # removes star
@@ -94,7 +96,7 @@ def formatFix(df): # Data format fix to one predictable format
     # Joined format fix: from string to date format
     df["Joined"] = pd.to_datetime(df["Joined"], format = "%b %d, %Y")
     #----------------------------------------------------------------
-    return
+    return df
 
 def height_to_cm(value): # https://www.geeksforgeeks.org/utilities/feet-to-centimeters-converter/
     if value.endswith("cm"):
@@ -119,12 +121,12 @@ def euros_to_int(value):
 #---------------------------------------------------------------------------------------------------------------------------------
 
 
-#columns=list(newdf.columns.values) - columns list 
+#columns=list(newdf.columns.values) - columns list
 #cleanData(newdf)
 #print(df["height"].head().T)  Check for dataset format by eyes. T is flipping columns and rows for 90 degrees
 #print(df["Weight"])
 
-# Deleting columns that we dont need at all: 
+# Deleting columns that we dont need at all:
 # photoUrl, playerUrl - links
 # LongName - we already got "name" and dont have any connection with position
 # Hits - alot of null values and dont have any connection with position
