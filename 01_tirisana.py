@@ -8,11 +8,6 @@ pd.set_option("display.width", None)
 # df stands for DataFrame
 df = pd.read_csv('dati/data.csv', low_memory=False) # reading data.csv and storing it in variable so we can use it easier in future (Creating new DataFrame by default, so it wont affect original dataset)
 
-#We are gonna predict best position column, so we doesnt need columns that doesnt have connection with it.
-# The answer is storing in "Best Poistion" column.
-# Dataset is also containing "Positions" columns, that doesnt have the answer directly, but its prolly will give massive boost to model accuracy, so it can be data leak
-
-
 #---------------------------------------------------------------------------------------------------------------------------------
 def cleanData(df):
     print(f"Rows at the start: {len(df.index)}")
@@ -20,7 +15,7 @@ def cleanData(df):
     df = deleteNull(df)
     df = formatFix(df)
     print(f"Rows at the end: {len(df.index)}")
-    df.to_csv('tirs.csv', index=False) # create csv
+    df.to_csv('dati/tirs.csv', index=False) # create csv
 
 def deleteDuplcates(df):
     lenBefore = len(df.index)
@@ -55,7 +50,6 @@ def formatFix(df): # Data format fix to one predictable format
 
     #--------------------------HEIGHT--------------------------------
     # Height format fix: Some rows containig height info not in cm but in feet. For example: 6'2" instead of normal 188cm
-    # https://www.geeksforgeeks.org/utilities/feet-to-centimeters-converter/
 
     print(f"{(~df["Height"].str.endswith("cm")).sum()} rows is corrupted with feet") # How much rows is corrupted with feet
     df["Height"] = df["Height"].apply(height_to_cm) #.apply is applying function to all rows in Height column
@@ -63,7 +57,6 @@ def formatFix(df): # Data format fix to one predictable format
 
     #---------------------------Weight-------------------------------
     # Weight format fix: Some rows containig weight info not in kg but in lbs. For example: 179lbs instead of normal 81kg
-    # https://www.unitconverters.net/weight-and-mass/lbs-to-kg.htm
     print(f"{df["Weight"].str.endswith("lbs").sum()} rows is corrupted with lbs") # How much rows is corrupted with lbs
     df["Weight"] = df["Weight"].apply(weight_to_kg)
     #----------------------------------------------------------------
@@ -83,7 +76,6 @@ def formatFix(df): # Data format fix to one predictable format
 
     #--------------------Value, Wage, Release Clause-----------------
     # Value, Wage, Release Clause format fix: rows  is containing sum with M (millions) or K (thousands) in it
-    # euros_to_int() )
     euroColumns = ["Value", "Wage", "Release Clause"]
     for i in euroColumns:
         print(f"{i} have {df[i].str.endswith("M").sum()} rows with M")
