@@ -62,3 +62,10 @@ importance = importance.sort_values(ascending=False)
 
 print("\nDivas svarīgākās kolonnas:")
 print(importance.head(2))
+
+# rows where the model was wrong
+test_data = df.loc[X_test.index, ["Name", "Best Position", "Asnwer"] + stats].copy()
+test_data["Prediction"] = predict
+mistakes = test_data[test_data["Asnwer"] != test_data["Prediction"]]
+print(f"\nMistakes: {len(mistakes)} of {len(test_data)}")
+print(mistakes[mistakes["Name"] == "Neymar Jr"][["Name", "Best Position", "Asnwer", "Prediction", "Finishing", "Crossing", "Short Passing", "Sliding Tackle"]])

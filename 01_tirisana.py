@@ -15,6 +15,7 @@ def cleanData(df):
     df = deleteNull(df)
     df = formatFix(df)
     print(f"Rows at the end: {len(df.index)}")
+    print(f"Missing values after cleaning: {df.isna().sum().sum()}")
     df.to_csv('tirs.csv', index=False) # create csv
 
 def deleteDuplcates(df):
