@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
-df = pd.read_csv("dati/tirs.csv") #reading clean csv data
+df = pd.read_csv("tirs.csv") #reading clean csv data
 
 #we are gonna predict Best Position
 # grouping by positions in only 4 groups instead of 15 cus there is no reason to keep all 15 positions

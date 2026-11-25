@@ -15,7 +15,7 @@ def cleanData(df):
     df = deleteNull(df)
     df = formatFix(df)
     print(f"Rows at the end: {len(df.index)}")
-    df.to_csv('dati/tirs.csv', index=False) # create csv
+    df.to_csv('tirs.csv', index=False) # create csv
 
 def deleteDuplcates(df):
     lenBefore = len(df.index)
@@ -126,7 +126,7 @@ def euros_to_int(value):
 newdf = df.drop(columns=["photoUrl", "playerUrl", "LongName", "Hits", "Contract", "Loan Date End"], axis="columns")
 cleanData(newdf)
 
-"""
+r"""
 Fat cat to celebrate 1 step
     /\_____/\
    /  o   o  \

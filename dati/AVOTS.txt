@@ -1,0 +1,14 @@
+Dataset: FIFA 21 Messy, Raw Dataset For Cleaning/ Exploring
+Author: yagunnersya (data scraped from sofifa.com)
+Link: https://www.kaggle.com/datasets/yagunnersya/fifa-21-messy-raw-dataset-for-cleaning-exploring
+File: fifa21_raw_data_v2.csv (renamed to data.csv in this project)
+Download date: 2026.11.15
+License: CC0 1.0 Public Domain – https://creativecommons.org/publicdomain/zero/1.0/
+
+Materials used:
+https://www.w3schools.com/python/pandas/pandas_cleaning.asp
+https://www.geeksforgeeks.org/
+https://pandas.pydata.org/
+https://scikit-learn.org/stable/install.html
+https://scikit-learn.org/stable/getting_started.html
+https://scikit-learn.org/stable/common_pitfalls.html
